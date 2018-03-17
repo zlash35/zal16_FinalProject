@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+	<html>
+		<head>  
+		
+			
+			<meta charset="UTF-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<title>Spotify</title>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css" media= "screen"/> <!-- Use href="css/bootstrap.min.css when in production for faster performance. -->
+			<link rel="stylesheet" type="text/css" href="css/customHome.css" media= "screen"/>
+			<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+			
+			
+			
+		</head>
+		<body>
+			<div class="container-fluid">
+				<div class="row">
+					
+					<div id="content" class="col-lg-12">
+						<div class="headerList">	
+							<h1>Welcome to your music page!</h1>
+							<!-- SO, I didn't update the iframe windows for this page yet. 
+							I wanted to wait to see how we were going to lay them out, so I can have a page for each one.  -->
+							<ul class="list-inline">
+							  <li class="list-inline-item"><a class="active2" href="#" target="iframe_b">PLAYLISTS</a></li>
+							  <li class="list-inline-item"><a href="#" target="iframe_b">SONGS</a></li>
+							  <li class="list-inline-item"><a href="#" target="iframe_b">ALBUMS</a></li>
+							  <li class="list-inline-item"><a href="#" target="iframe_b">ARTISTS</a></li>
+							</ul>
+						</div>								
+					</div>	
+	
+					
+				</div>	
+			
+		
+			
+			
+			
+				
+			</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		
+			<script>
+				$("document").ready(function() {	
+			
+
+					  $("#iframe_a").attr("src", $(".active2").attr("href"));
+					  $( '.list-inline' ).on( 'click','a', function() {          
+							$('.list-inline a.active2' ).removeClass( 'active2' );
+							$( this ).addClass( 'active2' );
+					  });
+						
+					  
+						
+					});
+						
+					
+			</script>
+		</body>
+	</html>	
+	
+	

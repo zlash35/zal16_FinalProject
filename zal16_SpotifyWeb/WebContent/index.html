@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+	<html>
+		<head>  
+		
+			
+			<meta charset="UTF-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="icon" href="spotify-squarelogo-1485534272928.png">
+			<title>Spotify</title>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css" media= "screen"/> <!-- Use href="css/bootstrap.min.css when in production for faster performance. -->
+			<link rel="stylesheet" type="text/css" href="css/custom.css" media= "screen"/>
+			<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+			<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>-->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			
+		</head>
+		<body>
+			<div class="container-fluid">
+				<div class="row">
+					
+					<div id="primary" class="col-lg-2">
+						<div class="logo">
+						
+							<a  class="logo" href="home.html" target="iframe_a"><i class="fab fa-spotify fa-2x" ></i></a>
+						</div>   
+									<hr>
+								<ul class="navMenu1">
+									<h2><a href="search.html" target="iframe_a">Search</a></h2> 
+									<hr>
+									<h2><a class="active"  href="home.html" target="iframe_a">Home</a></h2>
+									<h2><a href="music.html"  target="iframe_a">Your Music</a></h2>
+								</ul>
+						
+									<hr>
+							<h3> RECENTLY  PLAYED</h3>
+					</div>	
+	
+					<div id="content" class="col-lg-10">
+								<iframe name="iframe_a" id="iframe_a"></iframe>
+								<p> Content </p>
+						
+							
+					</div>
+				</div>
+			
+				<footer class="row">
+					<div id="footer" class="col-lg-12">
+					<!-- THIS IS THE DEFAULT AUDIO PLAYER -->
+					<!--
+					<audio id="music-player" controls="controls">
+						<source src="01 DJ Shadow and DJ Krush - Meiso.mp3"/>
+					</audio>
+					-->
+					<div class="container">
+						<audio id="music-player" class="video">
+							<source></source>
+						</audio>
+						<div id="buttons">
+						<span>
+						<i class="fas fa-random"></i>
+						<i class="fas fa-step-backward"></i>
+						<i class="far fa-play-circle"></i>
+						<i class="far fa-pause-circle"></i>
+						<i class="fas fa-step-forward"></i>
+						<i class="fas fa-redo-alt"></i>
+						</span>
+						</div>
+						<div class="container">
+						  
+						  <div class="progress">
+							<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+							  <span class="sr-only">70% Complete</span>
+							</div>
+						  </div>
+						</div>
+
+						
+						<div class="controls></div>
+						<input id="volume" type="range" min="0" max="10" value="5" />
+					</div>
+					<!-- ALL THIS CODE IS ME PRACTICING HOW TO CREATE MY OWN MEDIA AUDIO PLAYER FROM SCRATCH -->
+					<!--
+						<div id="audio-image">
+							<img class="cover" />
+						</div>
+					
+						<div id="audio-info">
+							<span class="artist"></span> <span class="title"></span>
+						</div>
+						 <input id="volume" type="range" min="0" max="10" value="5" />
+						 <br>
+						 <div id="buttons">
+						 <span>
+							<i class="fas fa-random"></i>
+							<button id="prev"><i class="fas fa-step-backward"></i></button>
+							<button id="play"><i class="far fa-play-circle"></i></button>
+							<button id="pause"><i class="far fa-pause-circle"></i></button>
+							<button id="next"><i class="fas fa-step-forward"></i></button>
+							<button id="replay"><i class="fas fa-redo-alt"></i></button>
+						</span>
+						 </div>
+						 <div class="clearfix"></div>
+						 <div id="tracker">
+							<div id="progressBar">
+								<span id="progress"></span>
+							</div>
+							<span id="duration"></span>
+						 </div>
+						 <div class="clearfix"></div>
+						 -->
+					</div>
+							
+					
+				</footer>
+			</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		
+			<script>
+				$("document").ready(function() {	
+			
+
+					  $("#iframe_a").attr("src", $(".active").attr("href"));
+					  $( '.navMenu1' ).on( 'click','a', function() {          
+							$('.navMenu1 a.active' ).removeClass( 'active' );
+							$( this ).addClass( 'active' );
+					  });
+						
+						
+					});
+							
+			</script>
+		</body>
+	</html>	
+	
+	
