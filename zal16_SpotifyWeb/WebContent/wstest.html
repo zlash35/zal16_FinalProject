@@ -10,12 +10,13 @@
   
 
 <script>
-var songList = null;
+//var artistList = null;
 
 
 $(document).ready(function(){
-	$.get("GetArtistList?band_name=Beastie", function(data){
-		// songList = JSON.parse(data);  this would return as JSON if it wasn't already specified in wstest.html 
+	console.log("What's up");
+	$.get("GetArtistList", function(data){
+		 //artistList = JSON.parse(data);  //this would return as JSON if it wasn't already specified in wstest.html 
 		// with  response.setContentType("application/json");
 		artistList = data;
 		console.log(artistList);
@@ -32,6 +33,6 @@ $(document).ready(function(){
 
 </head>
 <body>
-
+<p> All Artists </p>
 </body>
 </html>

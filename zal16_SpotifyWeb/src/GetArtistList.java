@@ -37,21 +37,22 @@ public class GetArtistList extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		response.setContentType("application/json");  // You want to always specify how to return the data for web services. 
-		
+		/*
 		String name = "";
 		
 		if(request.getParameter("band_name") != null){
 			name = request.getParameter("band_name");
 		}
-		
+		*/
 		try {
 			DbUtilities db = new DbUtilities();
-			String sql = "SELECT * FROM artist ";
+			String sql = "SELECT * FROM artist ORDER BY band_name ASC;";
+			/*
 			if(! name.equals("")){
-				sql += " WHERE band_name LIKE '%" + name + "%' "; 
+				sql += " WHERE band_name LIKE '%" + name + "%' ";   This part would search for the specific band name.
 			}
 			sql +=" ORDER BY band_name ASC;";
-			
+			*/
 			ResultSet rs = db.getResultSet(sql);
 			JSONArray artistList = new JSONArray();
 			while(rs.next()){
@@ -60,7 +61,7 @@ public class GetArtistList extends HttpServlet {
 				artist.put("first_name", rs.getString("first_name"));
 				artist.put("last_name", rs.getString("last_name"));
 				artist.put("band_name", rs.getString("band_name"));
-				artist.put("bio", rs.getInt("bio"));
+				artist.put("bio", rs.getString("bio"));
 				artistList.put(artist);
 			}
 			
