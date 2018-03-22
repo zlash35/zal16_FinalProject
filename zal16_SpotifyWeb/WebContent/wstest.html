@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Service Test</title>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  
+
+<script>
+var songList = null;
+
+
+$(document).ready(function(){
+	$.get("GetArtistList?band_name=Beastie", function(data){
+		// songList = JSON.parse(data);  this would return as JSON if it wasn't already specified in wstest.html 
+		// with  response.setContentType("application/json");
+		artistList = data;
+		console.log(artistList);
+		/*
+		for(var i = 0; i < songList.length; i++){
+			console.log(songList[i].title);
+		}
+		*/
+	});
+	
+	
+});
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
