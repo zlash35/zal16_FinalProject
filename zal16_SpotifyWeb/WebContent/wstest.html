@@ -8,13 +8,13 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   
-
+<!--  
 <script>
-//var artistList = null;
+var artistList = null;
 
 
 $(document).ready(function(){
-	console.log("What's up");
+	//console.log(artist);
 	$.get("GetArtistList", function(data){
 		 //artistList = JSON.parse(data);  //this would return as JSON if it wasn't already specified in wstest.html 
 		// with  response.setContentType("application/json");
@@ -30,9 +30,304 @@ $(document).ready(function(){
 	
 });
 </script>
+-->
+
+<script>
+	/*
+	$("#btnSearch").click(function(){
+		var searchTerm = $("#txtSearch").val();
+		//var searchBy = $("#cboSearchBy").val();
+		
+		searchSong("searchTerm", searchTerm);
+		//search("artist", searchTerm);
+		//search("album", searchTerm);
+		//************ add code here if seaRchterm is not null. *************
+		//searchArtist("artist", searchTerm);
+	});
+});
+
+function searchSong(key, val){
+	var searchUrl = "api/get_songs?" + key + "=" + val;
+	 console.log(searchUrl);
+	$.get(searchUrl, function(data){
+		console.log(data);
+		songSearchResults(data);
+		
+	});
+	
+}
+/*
+function searchArtist(key, val){
+	var searchUrl = "api/get_artists?" + key + "=" + val;
+	 console.log(searchUrl);
+	$.get(searchUrl, function(data){
+		console.log(data);
+		
+		artistSearchResults(data);
+	});
+}
+*/
+/*
+function songSearchResults(data){
+	var tbl = $("#tblData");
+	tbl.empty();
+	for(var i = 0; i < data.length; i++){
+		var tr = $("<tr></tr>");
+		var td = $("<td></td>");
+		td.html(data[i].title);
+		tr.append(td);
+		
+		td = $("<td></td>");
+		td.html(data[i].release_date)
+		tr.append(td);
+		
+		td = $("<td></td>");
+		td.html(data[i].length)
+		tr.append(td);
+		
+		tbl.append(tr);
+	}
+	
+}	
+*/
+</script>
 
 </head>
 <body>
 <p> All Artists </p>
+<div>
+	<audio id="music-player" controls="controls">
+						<source src="03 Lost in Confusion (online-audio-converter.com).mp3"/>
+					</audio>
+	
+	<br />
+	<input type="text" id="txtSearch" value="" />
+	<br />
+	<input type="button" id="btnSearch" value="Search" />
+	
+</div>
+	<table id="tblData" border="1" cellspacing="0" cellpadding="4">
+		 <thead>
+			<tr>
+	        <th>Title</th><th>Length</th><th>Release Date</th><th>Record Date</th>
+	    	</tr>		
+   		 </thead>
+		    <tbody data-bind=" foreach: songs">
+			    <tr>
+			        <td data-bind="text: title"></td>
+			        <td data-bind="text: length"></td>
+			        <td data-bind="text: release_date"></td>
+			        <td data-bind="text: record_date"></td>
+			    </tr> 
+		    </tbody>
+	</table>
+		<br />	
+		<table id="tblData" border="1" cellspacing="0" cellpadding="4">
+		 <thead>
+			<tr>
+	        <th>First name</th><th>Last Name</th><th>Band Name</th>
+	    	</tr>		
+   		 </thead>
+		    <tbody data-bind="foreach: artists">
+			    <tr>
+			        <td data-bind="text: first_name"></td>
+			        <td data-bind="text: last_name"></td>
+			        <td data-bind="text: band_name"></td>
+			    </tr> 
+		    </tbody>
+	</table>				
+		<br />
+		
+	<table id="tblData" border="1" cellspacing="0" cellpadding="4">
+		 <thead>
+			<tr>
+	        <th>Title</th><th>Release Date</th><th>Length</th>
+	    	</tr>		
+   		 </thead>
+		    <tbody data-bind="foreach: albums">
+			    <tr>
+			        <td data-bind="text: title"></td>
+			        <td data-bind="text: release_date"></td>
+			        <td data-bind="text: length"></td>
+			    </tr> 
+		    </tbody>
+	</table>	
+	
+		<p id="Jm"> </p>
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script>
+
+$(document).ready(function(){
+	
+	
+	
+		function songSearchModel(){ //My model view. 
+			//Data
+			var self = this;
+			self.songs = ko.observableArray([]);
+			self.albums = ko.observableArray([]);
+			self.artists = ko.observableArray([]);
+			//behaviours
+			
+			
+			$("#txtSearch").keyup(function(){ //click function using knockout.js
+				var searchTerm = $("#txtSearch").val();
+			
+				if(searchTerm.length >= 3){
+					var searchTerm = $("#txtSearch").val();
+					var searchUrl = "api/get_songs?searchTerm=" + searchTerm;
+				}
+				else{
+					var searchTerm = "**";
+					// null
+				}
+					
+					
+				    $.getJSON(searchUrl, function(data) { //getJSON Jquery function
+				        
+				        var mappedSongs = $.map(data.songs, function(songData) { // You have to add the object to the data to get back the arrays. Ex: data.songs
+				        	return new songList(songData) 						// If you just have (data, function(item), data will only return the JSON object
+				        				
+				        	});
+				        self.songs(mappedSongs);
+				        
+				        
+				        var mappedAlbums = $.map(data.albums, function(albumData) { //Call the name of each array in the JSON object searchResults. Ex: data.albums
+				        	return new albumList(albumData) 						
+				        			
+				        	});
+				        self.albums(mappedAlbums);
+				        
+				        var mappedArtists = $.map(data.artists, function(artistData) { //Call the name of each array in the JSON object searchResults. Ex: data.artists
+				        	return new artistList(artistData) 						
+				        			
+				        	});
+				        self.artists(mappedArtists);
+				        
+				        console.log(data.songs);
+				        
+				       // var myJSON = JSON.stringify(data);
+				        //document.getElementById("Jm").innerHTML = myJSON;
+				    });  
+				
+			});
+		}
+		
+		function songList(data){ // You can name the functions anything they don't have to be the same as the JSON arrays. 
+			var self = this;
+			this.title = ko.observable(data.title);
+			this.length = ko.observable(data.length);
+			this.release_date = ko.observable(data.release_date);
+			this.record_date = ko.observable(data.record_date);
+		}
+
+		function albumList(data){
+			var self = this;
+			this.title = ko.observable(data.title);
+			this.release_date = ko.observable(data.release_date);
+			this.length = ko.observable(data.length);
+		}
+		
+		function artistList(data){
+			 var self = this;
+			this.first_name = ko.observable(data.first_name);
+			this.last_name= ko.observable(data.last_name);
+			this.band_name = ko.observable(data.band_name);
+		}
+
+ko.applyBindings(new songSearchModel());
+});
+
+
+	// The bad version number 2	    
+/*
+var searchResult = null;
+$(document).ready(function(){
+	
+	$("#btnSearch").click(function(){
+		var searchTerm = $("#txtSearch").val();
+		
+		search(searchTerm);
+	});
+	
+	
+});
+
+function search(searchTerm){
+	var searchUrl = "api/get_songs?searchTerm=" + searchTerm;
+	// console.log(searchUrl);
+	$.get(searchUrl, function(data){
+		// console.log(data);
+		// var viewModel = {};
+		// viewModel.songData = data;
+		songList(data);
+	});
+}
+
+function songSearchResults(){
+	//console.log(data.songs);
+	self = this;
+	self.songs = ko.observableArray([
+	]);
+	var mappedTasks = $.map(function(item) {
+    	return new songList(item)
+    });
+    self.songs(mappedTasks);
+}
+ko.applyBindings(new songSearchResults());
+
+function songList(data){
+	//self = this;
+	this.title = ko.observable(data.title);
+	this.length = ko.observable(data.length);
+	this.release_date = ko.observable(data.release_date);
+	this.record_date = ko.observable(data.record_date);
+	console.log(data);
+	
+}
+/*
+
+///The bad version one.
+
+function AppViewModel() {
+	self = this;
+	self.songs = ko.observableArray([]);
+	//self.title = ko.observableArray([]);
+	
+	this.change = function() {
+		alert("Click Binding is used here !!!");
+		var currentVal = this.lastName();
+    };
+    
+    $.getJSON("api/get_songs?searchTerm=", function(allData) {
+        var mappedTasks = $.map(allData, function(item) {
+        	return new songList(item) });
+        self.songs(mappedTasks);
+        self.title(mappedTasks);
+    });    
+}
+
+ko.applyBindings(new AppViewModel());
+
+function songList(data){
+	//self = this;
+	this.title = ko.observable(data.title);
+    
+}
+
+function albumList(){
+	self = this;
+}
+
+function artistList(){
+	self = this;
+}
+*/
+</script>
+	<!--  	
+	
+	-->				
 </body>
 </html>
