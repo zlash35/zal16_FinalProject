@@ -1,4 +1,5 @@
 /* This is the custom file for the Spotify Web project*/
+
  * {
 		padding: 0;
         margin: 0;   /*This makes the extra white space go away that was on top of the picture*/
@@ -10,7 +11,7 @@
 
 #primary {
 	height: 550px;
-	background-color: black;
+	background-color: red;
 	
 }
 
@@ -24,15 +25,20 @@ iframe {
 	height: 550px;
 	border:0;
 }
+
 #content {
+	
 	height: 550px;
 	background-color:black;
-	padding: 0;
+	padding-bottom: 345px;
+	padding-right:0;
     margin: 0;
 	border:0;
 }
 
 #footer {
+	border-top: 3px;
+	border-color:black;
 	height: 112px;
 	clear:both;
 	background-color:#303030;
@@ -43,6 +49,11 @@ iframe {
 	margin-left:auto;
 	color:white;
 }
+
+#search {
+	float:right;
+}
+
 hr { 
     display: block;
     margin-top: 0.9em;
@@ -56,14 +67,14 @@ hr {
 
 h2 {
 	font-size: 17px;
-	color: grey;
+	color: #8c9188;
 	font-family:Helvetica;
 	font-weight: bold;
 }
 
 h3 {
 	font-size: 13px;
-	color: grey;
+	color: #8c9188;
 	font-family:sans-serif;
 }
 
@@ -108,13 +119,57 @@ input#volume::-webkit-slider-thumb {
     width:12px;
 }
 
-div#buttons{
-	width:40%;
-    margin: 15px auto;
-	margin-right:250px;
-	overflow:auto;
-	text-align:center;
+#btnSearch {
+	margin-bottom: 10px;
 }
+
+#buttons {
+	margin-left:447px;
+}
+button:focus {
+	
+	outline: 0; /* Gets rid of blue box around button*/
+}
+
+.buttons{
+	
+	width:4%;
+	margin-top: 18px;
+	margin-bottom:15px;
+	margin-right:8px;
+	overflow:auto;
+	color: #8c9188;
+	font-family:Helvetica;
+	font-weight: bold;
+	border: none;
+	background: none;
+	display: inline-block;
+	text-align: center;
+}
+
+button.buttons:hover{
+	
+	color: white;
+	
+}
+
+button#play-button:hover{
+	
+	color: white;
+	
+}
+#play-button{
+	position:relative;
+	top:7px;
+	margin-right:8px;
+	width:9%;
+	color: #8c9188;
+	font-family:Helvetica;
+	font-weight: bold;
+	border: none;
+	background: none;
+	
+}	
 
 
 #tracker{
@@ -127,22 +182,68 @@ div#buttons{
 	padding:3px;
 	background:#666;
 }
+table { 
+	text-align: center;
+	margin-left:250px;
+ }
 
-#progressBar { 
-   width:80%;
-   margin-left:2%;
-   margin-bottom:2px;
-   margin-top:2px;
-   height:15px;
-   float:center;
-   color:white;
+.title {
+	margin-left: 150px;
+	font-size: 25px;
 }
 
-#progress {
-   background:url(../images/progress.png) no-repeat;
-   height:10px;
-   display:inline-block;
-   color:white;
+
+.progress-bar { 
+   color:#535652;
+   background-color: #8c9188;
+   width: 100%;
+   
+}
+
+.progress {
+   width:46%;
+   margin-left:35%;
+   margin-bottom:10px;
+   margin-top:15px;
+   height:5px;
+   background-color: #535652;
+}
+
+progress::-moz-progress-bar { background:#535652 ; }
+progress::-webkit-progress-value { background:#535652 ; }
+progress { color: #535652; }
+
+#sound {
+	position:relative;
+	float:right;
+	margin-right:-100px;
+	margin-left:0;
+}
+
+#sound-right {
+	margin-top: 40px;
+	float:right;
+	
+	
+}
+#sound-icon {
+	
+	position:relative;
+	margin-top: 6px;
+	margin-left:148px;
+	width:4%;
+	color: #8c9188;
+	font-family:Helvetica;
+	font-weight: bold;
+	border: none;
+	background: none;
+	
+}
+
+button#sound-icon:hover{
+	
+	color: white;
+	
 }
 
 #duration{
@@ -190,3 +291,16 @@ audio{
 	border:0;
 }
 	
+#start-time {
+	margin-left: 284px;
+	margin-top:6px;
+	position:absolute;
+	color: #8c9188;
+}
+
+#end-time {
+	margin-left: 755px;
+	margin-top: -24px;
+	position:absolute;
+	color: #8c9188;
+}

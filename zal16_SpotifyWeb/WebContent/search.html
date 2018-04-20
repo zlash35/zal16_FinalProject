@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 	<html>
 		<head>  
-		
-			
+	
 			<meta charset="UTF-8"/>
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,36 +9,253 @@
 			<link rel="stylesheet" type="text/css" href="css/bootstrap.css" media= "screen"/> <!-- Use href="css/bootstrap.min.css when in production for faster performance. -->
 			<link rel="stylesheet" type="text/css" href="css/custom.css" media= "screen"/>
 			<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-			
-			
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 			
 		</head>
-		<body>
+		<body id="load">
 			<div class="container-fluid">
 				<div class="row">
 					
 					<div id="content" class="col-lg-12">
 						<div id="header"><p>Search for an Artist, Song, or Album</p></div>	
-						<form class="navbar-form navbar-right">
-							<div class="form-group">
-								 <input type="text" class="form-control input-mysize" placeholder="Start Typing...">
-							</div>
-							<button type="submit" class="btn btn-danger">Submit</button>
-						</form>		
+							
+							<input id="txtSearch" type="text" class="form-control input-mysize" placeholder="Start Typing..."  value="">
+							
+						   <!--  <button data-bind="click: goToData" id="btnSearch" type="submit" class="btn btn-danger" value="Search">Submit</button> --> 
+							
+							<table class="tblData" border="1" cellspacing="0" cellpadding="4">
+								 <thead>
+								 	<h2 class="title">Songs</h2>
+									<tr>
+							        <th>Title</th><th>Length</th><th>Release Date</th><th>Record Date</th>
+							    	</tr>		
+						   		 </thead>
+								    <tbody data-bind=" foreach: songs">
+									    <tr>
+									        <td data-bind="text: title"></td>
+									        <td data-bind="text: length"></td>
+									        <td data-bind="text: release_date"></td>
+									        <td data-bind="text: record_date"></td>
+									    </tr> 
+								    </tbody>
+							</table>
+								<br />	
+								<table class="tblData" border="1" cellspacing="0" cellpadding="4">
+								 <thead>
+								 	<h2 class="title">Artists</h2>
+									<tr>
+							        <th>First name</th><th>Last Name</th><th>Band Name</th>
+							    	</tr>		
+						   		 </thead>
+								    <tbody data-bind="foreach: artists">
+									    <tr>
+									        <td data-bind="text: first_name"></td>
+									        <td data-bind="text: last_name"></td>
+									        <td data-bind="text: band_name"></td>
+									    </tr> 
+								    </tbody>
+							</table>				
+								<br />
+								
+							<table class="tblData" border="1" cellspacing="0" cellpadding="4">
+								 <thead>
+								 	<h2 class="title">Albums</h2>
+									<tr>
+							        <th>Title</th><th>Release Date</th><th>Length</th>
+							    	</tr>		
+						   		 </thead>
+								    <tbody data-bind="foreach: albums">
+									    <tr>
+									        <td data-bind="text: title"></td>
+									        <td data-bind="text: release_date"></td>
+									        <td data-bind="text: length"></td>
+									    </tr> 
+								    </tbody>
+							</table>	
+							
 						
 					</div>	
+					
 	
 				</div>	
-			
-		
-			
-			
-			
+				
+				
 				
 			</div>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+			
+					<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script>
+
+$(document).ready(function(){
+	$("th, h2").hide();
+	
+		function songSearchModel(){ //My model view. 
+			//Data
+			var self = this;
+			self.songs = ko.observableArray([]);
+			self.albums = ko.observableArray([]);
+			self.artists = ko.observableArray([]);
+			//behaviours
+			
+			//self.goToData = function() { click function using knockout.js that I was using. 
+			$("#txtSearch").keyup(function(){ //click function using knockout.js
+					var searchTerm = $("#txtSearch").val();
+				
+					if(searchTerm.length >= 3){
+						var searchTerm = $("#txtSearch").val();
+						var searchUrl = "api/get_songs?searchTerm=" + searchTerm;
+						$("th, h2").show();
+						$("#content").css({ "padding-bottom": "200px"});
+					}
+					else{
+						var searchTerm = "null";
+						$("th, h2").hide();
+						$("#content").css({ "padding-bottom": "375px"});
+						
+						// null
+					}
+						
+				        
+					
+				
+				
+				
+				var searchUrl = "api/get_songs?searchTerm=" + searchTerm;
+		    	
+			    $.getJSON(searchUrl, function(data) { //getJSON Jquery function
+			        
+			        var mappedSongs = $.map(data.songs, function(songData) { // You have to add the object to the data to get back the arrays. Ex: data.songs
+			        	return new songList(songData) 						// If you just have (data, function(item), data will only return the JSON object
+			        				
+			        	});
+			        self.songs(mappedSongs);
+			        
+			        
+			        var mappedAlbums = $.map(data.albums, function(albumData) { //Call the name of each array in the JSON object searchResults. Ex: data.albums
+			        	return new albumList(albumData) 						
+			        			
+			        	});
+			        self.albums(mappedAlbums);
+			        
+			        var mappedArtists = $.map(data.artists, function(artistData) { //Call the name of each array in the JSON object searchResults. Ex: data.artists
+			        	return new artistList(artistData) 						
+			        			
+			        	});
+			        self.artists(mappedArtists);
+			        
+			        console.log(data);
+			        
+			        
+			       // var myJSON = JSON.stringify(data);
+			        //document.getElementById("Jm").innerHTML = myJSON;
+			    	
+			        
+			    });    
+			});
+		}
 		
-		<script src="js/bootstrap.min.js"></script>
+		function songList(data){ // You can name the functions anything they don't have to be the same as the JSON arrays. 
+			var self = this;
+			this.title = ko.observable(data.title);
+			this.length = ko.observable(data.length);
+			this.release_date = ko.observable(data.release_date);
+			this.record_date = ko.observable(data.record_date);
+		}
+
+		function albumList(data){
+			var self = this;
+			this.title = ko.observable(data.title);
+			this.release_date = ko.observable(data.release_date);
+			this.length = ko.observable(data.length);
+		}
+		
+		function artistList(data){
+			 var self = this;
+			this.first_name = ko.observable(data.first_name);
+			this.last_name= ko.observable(data.last_name);
+			this.band_name = ko.observable(data.band_name);
+		}
+		$("td, tr").css("color", "#1ded02");
+		
+		var rowCount = $('.tblData tr, td').length;
+		//alert($('.tblData tr, td').length);
+		if(rowCount >= "5"){
+			$("#content").animate({height: '100%'});
+		}
+ko.applyBindings(new songSearchModel());
+
+});
+
+</script>
+			<!--  ALL THIS CODE WAS USING REGULAR JQUERY, WITHOUT KNOCKOUT------
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<script>
+		//var searchTerm = null;
+			$(document).ready(function(){
+				
+				$("#btnSearch").click(function(){
+					var searchTerm = $("#txtSearch").val();
+					//var searchBy = $("#cboSearchBy").val();
+					
+					search("title", searchTerm);
+					
+				});
+				
+			});
+			
+			function search(key, val){
+				var searchUrl = "api/get_songs?" + key + "=" + val;
+				 console.log(searchUrl);
+				$.get(searchUrl, function(data){
+					console.log(data);
+					songSearchResults(data);
+				});
+				
+			}
+			
+			function songSearchResults(data){
+				var tbl = $("#tblData");
+				tbl.empty();
+				for(var i = 0; i < data.length; i++){
+					var tr = $("<tr></tr>");
+					var td = $("<td></td>");
+					
+					
+					td.html(data[i].title);
+					tr.append(td);
+					
+					td = $("<td></td>");
+					td.html(data[i].release_date)
+					tr.append(td);
+					
+					td = $("<td></td>");
+					td.html(data[i].length)
+					tr.append(td);
+					
+					tbl.append(tr);
+					
+					
+					$("td").css("background-color", "yellow");
+					
+					
+					
+				}
+				var rowCount = $('#tblData tr').length;
+				alert($('#tblData tr').length);
+				if(rowCount >= "14"){
+					$("#content").animate({height: '100%'});
+				}
+				else {
+					$("#content").height('550');
+				//$("#tblData").css("align", "center");
+				}
+			}
+			
+		</script>
+		
+		-->
 		</body>
 	</html>	
 	
