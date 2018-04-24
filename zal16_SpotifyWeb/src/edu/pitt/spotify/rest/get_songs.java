@@ -143,7 +143,7 @@ public class get_songs extends HttpServlet {
 			
 		}// end of check for null searchTerm parameter	
 		
-		
+		//***************************OLD CODE TO JUST SEARCH THE FOR SONGS AND ARTISTS USING TWO SEPARATE SERVLETS. IGNORE*******************
 		/*
 		response.setContentType("application/json");
 		// Title
