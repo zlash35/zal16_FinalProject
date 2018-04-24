@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 	<html>
 		<head>  
-		
-			
 			<meta charset="UTF-8"/>
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +8,14 @@
 	 		<title>Spotify</title>
 			<link rel="stylesheet" type="text/css" href="css/bootstrap.css" media= "screen"/> <!-- Use href="css/bootstrap.min.css when in production for faster performance. -->
 			<link rel="stylesheet" type="text/css" href="css/custom.css" media= "screen"/>
-			
 			<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-			<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>-->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-			<!--  <script src="js/bootstrap.min.js"></script>-->
 			
 		</head>
 		<body>
 			<div class="container-fluid">
 				<div class="row">
-					
 					<div id="primary" class="col-lg-2">
 						<div class="logo">
-						
 							<a  class="logo" href="home.html" target="iframe_a"><i class="fab fa-spotify fa-2x" ></i></a>
 						</div>   
 									<hr>
@@ -41,24 +33,26 @@
 					<div id="content" class="col-lg-10">
 								<iframe name="iframe_a" id="iframe_a"></iframe>
 								<p> Content </p>
-						
-							
 					</div>
 				</div>
 			
 				<footer class="row">
 					<div id="footer" class="col-lg-12">
-					<!-- THIS IS THE DEFAULT AUDIO PLAYER -->
-					<!--
-					<audio id="music-player" controls="controls">
-						<source src="01 DJ Shadow and DJ Krush - Meiso.mp3"/>
-					</audio>
-					-->
 					<div class="container">
 						<div class="row">
-							<div class="col-10">
+							<div class="col-2">
+								<div id="album_cover">
+									<img src="chil_of_grave_xs.jpg" alt="Black Sabbath" >
+									<div id="album_text">
+										<p>CHILDREN OF THE GRAVE</p>
+										<p>Black sabbath</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-8">
+								
 								<audio id="music-player"  ontimeupdate="initProgressBar()">
-									<source src="03 Lost in Confusion.mp3"/>
+									<source src="07 - Black Sabbath - Children Of The Grave.mp3">
 								</audio>
 								<div id="buttons">
 								
@@ -99,7 +93,8 @@
 		
 			<script>
 				$("document").ready(function() {	
-			
+					$("#album_cover").hide();
+					
 
 					  $("#iframe_a").attr("src", $(".active").attr("href"));
 					  $( '.navMenu1' ).on( 'click','a', function() {          
@@ -107,6 +102,7 @@
 							$( this ).addClass( 'active' );
 					 	 });
 					  $("#play-button").click( function (){
+						  $("#album_cover").show();
 						  var audioElem = document.getElementById('music-player');
 						  if (audioElem.paused) {
 					    	   $("#buttonChange").attr('class', 'far fa-pause-circle fa-2x'); 
@@ -129,49 +125,12 @@
 					  
 					  
 					});
-				/*
-				function toggleSound() {
-				       var audioElem = document.getElementById('music-player');
-				       var classElem = document.getElementById('button');
-				       if (audioElem.paused) {
-				    	   $("#buttonChange").attr('class', 'far fa-pause-circle fa-2x'); 
-				          audioElem.play();
-				       } else {
-				    	   $("#buttonChange").attr('class', 'far fa-play-circle fa-2x');
-				          audioElem.pause();
-				       }
-				 }
-				*/
-				/*
-				function muteVolume() {
-				       var volumeElem = document.getElementById('music-player');
-				       var classElem = document.getElementById('button');
-				  $( '#sound-right' ).on( 'click','button', function() {  
-					  
-					  
-				       if (!volumeElem.mute) {
-				    	   $("#soundChange").attr('class', 'fas fa-volume-off'); 
-				    	   $("volumeElem").prop('muted', true); 
-				       } else {
-				    	   $("#soundChange").attr('class', 'fas fa-volume-up');
-				    	   $("volumeElem").prop('muted', false);
-				       }
-				  });
-				  $("#sound-right").click( function (){
-					    if(!$("music-player").prop('muted') ) {
-					    	$("#soundChange").attr('class', 'fas fa-volume-off'); 
-					          $("music-player").prop('muted', true);
-					    } else {
-					      $("#soundChange").attr('class', 'fas fa-volume-up');
-					      $("music-player").prop('muted', false);
-					    }
-					  });
-				  
-				}
-				*/
+				
+				// Duncan, L (2016) ProgressBar functionality/ on audio player source code [Source code]. https://m.dotdev.co/how-to-build-an-audio-player-with-html5-and-the-progress-element-487cbbbaebfc
 				function initProgressBar() {
 					  var player = document.getElementById('music-player');
-					  var length = player.duration
+					  var length = player.duration // This will return the song length in seconds. 
+					  //console.log(length);
 					  var current_time = player.currentTime;
 
 					  // calculate total length of value
@@ -199,11 +158,11 @@
 				
 				function calculateTotalValue(length) {
 					  var minutes = Math.floor(length / 60),
-					    seconds_int = length - minutes * 60,
+					    seconds_int = (length - minutes * 60) + 1,
 					    seconds_str = seconds_int.toString(),
 					    seconds = seconds_str.substr(0, 2),
 					    time = minutes + ':' + seconds
-
+					    
 					  return time;
 				}
 

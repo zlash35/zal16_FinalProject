@@ -99,32 +99,34 @@ h3 {
 	font-weight:bold;
 }
 
-.cover{
-	width:15%;
-	z-index:1;
+#cover {
+	position:relative;
+	color:white;
+	
+	
 }
 
-input#volume {
-	width:20%;
-	margin-left:75%;
-    -webkit-appearance: none !important;
-    background:#ccc;
-    height:5px;
-	margin-bottom:8px;
+#album_text {
+	float:right;
+	text-align: left;
+	padding-right: 4px;
+	color: white;
+	
 }
-input#volume::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
-    background:url(../images/knob.png) no-repeat;
-    height:12px;
-    width:12px;
+
+#album_cover {
+	margin-left: -110px;
+	padding-top:18px;
 }
+
 
 #btnSearch {
 	margin-bottom: 10px;
 }
 
 #buttons {
-	margin-left:447px;
+	
+	margin-left:280px;
 }
 button:focus {
 	
@@ -133,10 +135,10 @@ button:focus {
 
 .buttons{
 	
-	width:4%;
+	width:5%;
 	margin-top: 18px;
+	margin-right:10px;
 	margin-bottom:15px;
-	margin-right:8px;
 	overflow:auto;
 	color: #8c9188;
 	font-family:Helvetica;
@@ -161,7 +163,7 @@ button#play-button:hover{
 #play-button{
 	position:relative;
 	top:7px;
-	margin-right:8px;
+	margin-right:10px;
 	width:9%;
 	color: #8c9188;
 	font-family:Helvetica;
@@ -201,8 +203,8 @@ table {
 }
 
 .progress {
-   width:46%;
-   margin-left:35%;
+   width:63%;
+   margin-left:20%;
    margin-bottom:10px;
    margin-top:15px;
    height:5px;
@@ -216,7 +218,7 @@ progress { color: #535652; }
 #sound {
 	position:relative;
 	float:right;
-	margin-right:-100px;
+	margin-right:-113px;
 	margin-left:0;
 }
 
@@ -292,14 +294,14 @@ audio{
 }
 	
 #start-time {
-	margin-left: 284px;
+	margin-left: 111px;
 	margin-top:6px;
 	position:absolute;
 	color: #8c9188;
 }
 
 #end-time {
-	margin-left: 755px;
+	margin-left: 615px;
 	margin-top: -24px;
 	position:absolute;
 	color: #8c9188;

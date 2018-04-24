@@ -9,54 +9,74 @@
 			<title>Spotify</title>
 			<link rel="stylesheet" type="text/css" href="css/bootstrap.css" media= "screen"/> <!-- Use href="css/bootstrap.min.css when in production for faster performance. -->
 			<link rel="stylesheet" type="text/css" href="css/customHome.css" media= "screen"/>
+			<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 			<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 			
+		    
 			
 			
 		</head>
 		<body>
-			<div class="container-fluid">
-				<div class="row">
-					
-					<div id="content" class="col-lg-12">
-						<div class="headerList">	
-							<h1>Welcome to your home page!</h1>
-							<!-- SO, I didn't update the iframe windows for this page yet. 
-							I wanted to wait to see how we were going to lay them out, so I can have a page for each one.  -->
-							<ul class="list-inline">
-							  <li class="list-inline-item"><a class="active2" href="#" target="iframe_b">NEW RELEASES</a></li>
-							  <li class="list-inline-item"><a href="#" target="iframe_b">WORKOUT TWERKOUT</a></li>
-							  <li class="list-inline-item"><a href="#" target="iframe_b">JOCK JAMS 96</a></li>
-							  <li class="list-inline-item"><a href="#" target="iframe_b">THRASHIN</a></li>
-							</ul>
-						</div>						
-					</div>	
-	
-					
-				</div>	
 			
+				<div id="primary" class="jumbotron jumbotron-fluid">
+				 	<div  class="container">
+				   	 <h1  id="spot" class="display-4">Spotify <span id="knock">Knockoff</span></h1>
+				    
+				   
+				    
+					</div>
+				</div>
+				
+					<div class="container" >
+						<div class="row" id="organizeButton">
+								
+								<h2><button id="newRel" class="" dtype="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >NEW RELEASES</button></h2>
+								
+						</div>		
+						<div class="row" id="newPics">
+								<div class="collapse" id="collapseExample">
+									  <ul class="list-inline">
+										  <li class="list-inline-item"><img id="pics" src="bold_as_love_jimi_hendrix_experience_album_cover_art.jpg" alt="Jimi" class="rounded-circle">
+										  <p>Jimi Hendrix</p></li>
+										  <li class="list-inline-item"><img id="pics"src="mf_doom.jpg" alt="Doom" class="rounded-circle">
+										   <p>Mf Doom</p></li>
+										  <li class="list-inline-item"><img id="pics" src="The-Beatles-Abbey-Road.jpg" alt="Beatles" class="rounded-circle">
+										   <p>The Beatles</p></li></li>
+									 </ul>
+								</div>
+					 	</div>
+					</div>	
+			
+			  	
 		
 			
 			
 			
 				
-			</div>
+			
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		
+		 <script src="js/bootstrap.min.js"></script>
 		
 			<script>
 				$("document").ready(function() {	
-			
+						var button = document.getElementById('newRel');
 
-					  $("#iframe_a").attr("src", $(".active2").attr("href"));
-					  $( '.list-inline' ).on( 'click','a', function() {          
-							$('.list-inline a.active2' ).removeClass( 'active2' );
-							$( this ).addClass( 'active2' );
-					  });
+						$(button).on('click', function() {
+							if(button )
+							  $(this ).toggleClass( "active2" );
+							 
+						});
+
+						  
+						function blink_text() {
+						    $('#spot').fadeOut(500);
+						    $('#spot').fadeIn(500);
+						    $('#knock').fadeOut(500);
+						    $('#knock').fadeIn(500);
+						}
+						setInterval(blink_text, 2000);
 						
-					  
-						
-					});
+				});
 						
 					
 			</script>

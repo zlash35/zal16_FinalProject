@@ -15,12 +15,10 @@
 		<body id="load">
 			<div class="container-fluid">
 				<div class="row">
-					
 					<div id="content" class="col-lg-12">
 						<div id="header"><p>Search for an Artist, Song, or Album</p></div>	
-							
 							<input id="txtSearch" type="text" class="form-control input-mysize" placeholder="Start Typing..."  value="">
-							
+							<!--  OPTIONAL BUTTON, BUT I TOOK IT OUT FOR JUST THE AUTO COMPLETE SEARCH FEATURE. -->
 						   <!--  <button data-bind="click: goToData" id="btnSearch" type="submit" class="btn btn-danger" value="Search">Submit</button> --> 
 							
 							<table class="tblData" border="1" cellspacing="0" cellpadding="4">
@@ -30,15 +28,22 @@
 							        <th>Title</th><th>Length</th><th>Release Date</th><th>Record Date</th>
 							    	</tr>		
 						   		 </thead>
+						   		 	<form action="music.html" method="post" id="reg-form">
 								    <tbody data-bind=" foreach: songs">
 									    <tr>
 									        <td data-bind="text: title"></td>
 									        <td data-bind="text: length"></td>
 									        <td data-bind="text: release_date"></td>
 									        <td data-bind="text: record_date"></td>
+									        <td data-bind="click: function(title, length, release_date) 
+									        { console.log(title); $.post( 'music.html', $('#reg-form').serialize(), function( title ) {  $( '#info' ).html( title );  });  }"><i class="fas fa-plus fa-2x"></i></td>
+									        <!-- In this console.log I am getting back the 
+									    	correct data songList Object, but how do I get it to post to my music.html page? -->
 									    </tr> 
 								    </tbody>
+								    </form>
 							</table>
+							
 								<br />	
 								<table class="tblData" border="1" cellspacing="0" cellpadding="4">
 								 <thead>
@@ -52,7 +57,8 @@
 									        <td data-bind="text: first_name"></td>
 									        <td data-bind="text: last_name"></td>
 									        <td data-bind="text: band_name"></td>
-									    </tr> 
+									        <td data-bind="click: function(first_name, last_name, band_name) { console.log(first_name);  }"><i class="fas fa-plus fa-2x"></i></td>
+									    </tr> 																
 								    </tbody>
 							</table>				
 								<br />
@@ -69,18 +75,12 @@
 									        <td data-bind="text: title"></td>
 									        <td data-bind="text: release_date"></td>
 									        <td data-bind="text: length"></td>
+									        <td data-bind="click: function(title, release_date, length) { console.log(title);  }"><i class="fas fa-plus fa-2x"></i></td>
 									    </tr> 
 								    </tbody>
 							</table>	
-							
-						
 					</div>	
-					
-	
 				</div>	
-				
-				
-				
 			</div>
 			
 					<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -116,11 +116,6 @@ $(document).ready(function(){
 						// null
 					}
 						
-				        
-					
-				
-				
-				
 				var searchUrl = "api/get_songs?searchTerm=" + searchTerm;
 		    	
 			    $.getJSON(searchUrl, function(data) { //getJSON Jquery function
@@ -145,14 +140,13 @@ $(document).ready(function(){
 			        self.artists(mappedArtists);
 			        
 			        console.log(data);
-			        
-			        
+			     	// CODE BELOW WAS BEING USED TO CHECK MY JSON DATA THAT WAS RETURNING FROM THE SERVER. 
 			       // var myJSON = JSON.stringify(data);
-			        //document.getElementById("Jm").innerHTML = myJSON;
-			    	
-			        
+			        //document.getElementById("Jm").innerHTML = myJSON;  
 			    });    
+			    
 			});
+			    
 		}
 		
 		function songList(data){ // You can name the functions anything they don't have to be the same as the JSON arrays. 
@@ -176,6 +170,8 @@ $(document).ready(function(){
 			this.last_name= ko.observable(data.last_name);
 			this.band_name = ko.observable(data.band_name);
 		}
+		
+		//TO CHANGE THE HEIGHT OF THE BACKGROUND AND TABLE COLOR THAT COMES BACK. 
 		$("td, tr").css("color", "#1ded02");
 		
 		var rowCount = $('.tblData tr, td').length;
@@ -188,7 +184,7 @@ ko.applyBindings(new songSearchModel());
 });
 
 </script>
-			<!--  ALL THIS CODE WAS USING REGULAR JQUERY, WITHOUT KNOCKOUT------
+			<!--  ALL THIS CODE WAS USING REGULAR JQUERY AND JAVASCRIPT, WITHOUT KNOCKOUT------
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		
 		<script>
@@ -238,8 +234,6 @@ ko.applyBindings(new songSearchModel());
 					
 					
 					$("td").css("background-color", "yellow");
-					
-					
 					
 				}
 				var rowCount = $('#tblData tr').length;
